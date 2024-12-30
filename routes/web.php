@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ThemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::controller(ThemController::class)->name('theme.')->group(function()
+{
+    Route::get('/', 'index')->name('index');
+    Route::get('/category', 'category')->name('category');
+    Route::get('/contact', 'contact')->name('contact');
+    Route::get('/single-blog', 'singleBlog')->name('singleBlog');
+    Route::get('/login', 'login')->name('login');
+    Route::get('/register', 'register')->name('register');
+
 });
+
+Route::get('/index', function () {
+    return view('theme.index'); // Adjust the view path accordingly
+})->name('in');
+
+
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,3 +49,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
